@@ -18,14 +18,14 @@ class Wxcontroller extends Controller
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
         $data=simplexml_load_string($content);
         // dd($data);
-            // var_dump($data);
-            // print_r($data);
-            // echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
-            // echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
-            // echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
-            // echo 'Event:'. $data->Event; echo "</br>";//消息类型
-            // echo 'EventKey:'.$data->EventKey;echo "</br>";
-            // 获取openid
+        //     var_dump($data);
+        //     print_r($data);
+        //     echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
+        //     echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
+        //     echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
+        //     echo 'Event:'. $data->Event; echo "</br>";//消息类型
+        //     echo 'EventKey:'.$data->EventKey;echo "</br>";
+        //     // 获取openid
         // die;
         // dd($data['FromUserName']);
         $openid=$data->FromUserName;
