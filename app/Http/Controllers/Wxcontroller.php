@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
 class Wxcontroller extends Controller
 {
     public function valid(){
@@ -72,9 +73,10 @@ class Wxcontroller extends Controller
         $key='wx_access_token';
         $token=Redis::get($key);
         if($token){
-            echo "redis";
+            // echo "redis";
         }else{
-             $arr=json_decode($response,true);
+
+            $arr=json_decode($response,true);
             Redis::set($key,$arr['access_token']);
             Redis::expire($key,3600);
             $token=$arr['access_token'];
@@ -94,8 +96,46 @@ class Wxcontroller extends Controller
         $u=json_decode($data,true);
         return $u;
     }
-    public function a(){
-        // DD(DB::table('user')->select());
-        echo "holle cuifang";
+    /**创建公众号菜单 */
+    public function createMenu(){
+        //菜单接口
+        // echo "111";die;
+        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->AccessToren();
+        //接口数据
+        // echo $url;die;
+        $post_arr=[
+
+            'button'=>[
+
+                [
+                    "type"=>"click",
+                    "name"=>"今日歌曲",
+
+                    "key"=>"V1001_TODAY_MUSIC"
+                ],
+                [
+                    "name"=>"小企鹅",
+                    "sub_button"=>[
+                        [
+                            "type"=>"view",
+                            "name"=>"搜索",
+                            "url"=>"http://1809cuifangfang.comcto.com/"
+                        ],
+                    ],
+                    "key"=>"V1002_TODAY_MUSIC"
+                ],
+            ]
+        ];
+        $json_str=json_encode($post_arr,JSON_UNESCAPED_UNICODE);
+        // dd($json_str);
+        //发送请求
+        $clinet=new client();
+        $response=$clinet->request('POST',$url,[
+            'body'=>$json_str
+        ]);
+        //处理响应
+        $res_str=$response->getBody();
+        echo $res_str;
     }
+
 }
