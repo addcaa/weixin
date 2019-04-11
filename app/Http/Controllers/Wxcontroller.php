@@ -97,6 +97,6 @@ class Wxcontroller extends Controller
     }
     public function a(){
         // DD(DB::table('user')->select());
-        echo "cuifang";
+        echo "hahah";
     }
 }
