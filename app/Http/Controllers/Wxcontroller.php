@@ -25,7 +25,7 @@ class Wxcontroller extends Controller
         //     echo 'Event:'. $data->Event; echo "</br>";//消息类型
         //     echo 'EventKey:'.$data->EventKey;echo "</br>";
         //     // 获取openid
-        // die;
+        // exit;
         // dd($data['FromUserName']);
         $openid=$data->FromUserName;
         // echo $openid;die;
