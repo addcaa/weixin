@@ -19,8 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'weixin/valid',
-        'group'
+        'weixi/valid',
     ];
 
 }
