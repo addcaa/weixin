@@ -20,13 +20,13 @@ class Wxcontroller extends Controller
         // dd($data);
         //     var_dump($data);
         //     print_r($data);
-            echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
-            echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
-            echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
-            echo 'Event:'. $data->Event; echo "</br>";//消息类型
-            echo 'EventKey:'.$data->EventKey;echo "</br>";
-            // 获取openid
-        die;
+        //     echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
+        //     echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
+        //     echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
+        //     echo 'Event:'. $data->Event; echo "</br>";//消息类型
+        //     echo 'EventKey:'.$data->EventKey;echo "</br>";
+        //     // 获取openid
+        // die;
         // dd($data['FromUserName']);
         $openid=$data->FromUserName;
         // echo $openid;die;
