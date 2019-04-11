@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
     // phpinfo();
 });
-Route::any('weixi/valid','Wxcontroller@valid');
-Route::any('weixi/valid','Wxcontroller@index');
+Route::any('weixin/valid','Wxcontroller@valid');
+Route::any('weixin/valid','Wxcontroller@index');
 
-Route::any('weixi/AccessToren','Wxcontroller@AccessToren');
-Route::any('weixi/test','Wxcontroller@test');
-Route::any('weixi/a','Wxcontroller@a');
+Route::any('weixin/AccessToren','Wxcontroller@AccessToren');
+Route::any('weixin/test','Wxcontroller@test');
+Route::any('weixin/a','Wxcontroller@a');
 
