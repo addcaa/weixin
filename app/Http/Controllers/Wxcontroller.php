@@ -62,7 +62,7 @@ class Wxcontroller extends Controller
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
             $voictime=date('Y-d-m H:i:s');
             $serfil=file_get_contents($url);
-            file_put_contents("/wwwroot/1809a/voice/$voictime.mp3",$serfil,FILE_APPEND);
+            file_put_contents("/wwwroot/weixin/voice/$voictime.mp3",$serfil,FILE_APPEND);
         }
         //判断登录
         if($event=='subscribe'){
