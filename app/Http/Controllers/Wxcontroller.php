@@ -17,17 +17,8 @@ class Wxcontroller extends Controller
         $str=$time.$content."\n";
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
         $data=simplexml_load_string($content);
-        // dd($data);
-        //     var_dump($data);
-        //     print_r($data);
-        //     echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
-        //     echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
-        //     echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
-        //     echo 'Event:'. $data->Event; echo "</br>";//事件类型
-        //     echo 'EventKey:'.$data->EventKey;echo "</br>";
-        //     // 获取openid
-        // exit;
-        // dd($data['FromUserName']);
+
+        $MediaId=$data->MediaId;
         $openid=$data->FromUserName;
         // echo $openid;die;
         $wx_id=$data->ToUserName;
@@ -36,11 +27,12 @@ class Wxcontroller extends Controller
         $event = $data->Event;
         $MsgType=$data->MsgType;
         $content=$data->Content;
-
         // dd($MsgType);
+        $u=$this->getUserInfo($openid);
+        $access=$this->AccessToren();
+
         if($MsgType=="text"){
-            $u=$this->getUserInfo($openid);
-            // dd($u);
+            // 下载用户文本
             $info=[
                 'openid'=>$u['openid'],
                 'm_name'=>$u['nickname'],
@@ -50,8 +42,18 @@ class Wxcontroller extends Controller
                 'm_text'=> $content
             ];
             $arr=DB::table('message')->insert($info);
-            // dd($info);
-            // print_r($info);die;
+            echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+            <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+            <CreateTime>'.time().'</CreateTime>
+            <MsgType><![CDATA[text]]></MsgType>
+            <Content>![CDATA['.'微笑'.']]</Content>
+            </xml>
+            ';
+        }else if($MsgType=="image"){
+            //获取临时素材
+            $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            // 下载用户图片
+            $download=file_get_contents($url);
         }
         //判断登录
         if($event=='subscribe'){
