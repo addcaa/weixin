@@ -23,7 +23,7 @@ class Wxcontroller extends Controller
         //     echo 'ToUserName:'.$data->ToUserName;echo "</br>"; //公众号id
         //     echo 'FromUserName:'.$data->FromUserName;echo "</br>"; //用户openid
         //     echo 'CreateTime:'.$data->CreateTime; echo "</br>";//时间
-        //     echo 'Event:'. $data->Event; echo "</br>";//消息类型
+        //     echo 'Event:'. $data->Event; echo "</br>";//事件类型
         //     echo 'EventKey:'.$data->EventKey;echo "</br>";
         //     // 获取openid
         // exit;
@@ -31,8 +31,29 @@ class Wxcontroller extends Controller
         $openid=$data->FromUserName;
         // echo $openid;die;
         $wx_id=$data->ToUserName;
+        $createTime=$data->CreateTime;
         // dd($user_info->nickname);
         $event = $data->Event;
+        $MsgType=$data->MsgType;
+        $content=$data->Content;
+
+        // dd($MsgType);
+        if($MsgType=="text"){
+            $u=$this->getUserInfo($openid);
+            // dd($u);
+            $info=[
+                'openid'=>$u['openid'],
+                'm_name'=>$u['nickname'],
+                'm_sex'=>$u['sex'],
+                'm_headimg'=>$u['headimgurl'],
+                'm_time'=>$createTime,
+                'm_text'=> $content
+            ];
+            $arr=DB::table('message')->insert($info);
+            // dd($info);
+            // print_r($info);die;
+        }
+        //判断登录
         if($event=='subscribe'){
             $user_info=DB::table('user')->where(['openid'=>$openid])->first();
             if($user_info){
@@ -65,7 +86,9 @@ class Wxcontroller extends Controller
             }
 
         }
+
     }
+
     /**获取微信 AccessToren */
     public function AccessToren(){
         $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
@@ -89,6 +112,7 @@ class Wxcontroller extends Controller
         $access_token=$this->AccessToren();
         echo $access_token;
     }
+    /**用户信息 */
     public function getUserInfo($openid){
         $url='https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->AccessToren().'&openid='.$openid.'&lang=zh_CN';
         //dd($url);

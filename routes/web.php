@@ -17,7 +17,6 @@ Route::get('/', function () {
 });
 Route::any('/weixi/valid','Wxcontroller@valid');
 Route::any('/weixi/valid','Wxcontroller@index');
-
 Route::any('/weixin/AccessToren','Wxcontroller@AccessToren');
 Route::any('/weixin/test','Wxcontroller@test');
 Route::any('/weixin/createMenu','Wxcontroller@createMenu');
