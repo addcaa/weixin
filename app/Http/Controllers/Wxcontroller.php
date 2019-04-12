@@ -46,7 +46,7 @@ class Wxcontroller extends Controller
             <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
             <CreateTime>'.time().'</CreateTime>
             <MsgType><![CDATA[text]]></MsgType>
-            <Content>![CDATA['.'微笑'.']]</Content>
+            <Content>['.'不要失去信心，只要坚持不懈，就终会有成果的'.']</Content>
             </xml>
             ';
         }else if($MsgType=="image"){
