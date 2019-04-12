@@ -53,7 +53,10 @@ class Wxcontroller extends Controller
             //获取临时素材
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
             // 下载用户图片
+            $imgtime=date('Y-m-d H:i:s',time());
             $download=file_get_contents($url);
+            // dd($download);
+            file_put_contents("/wwwroot/weixin/img/$imgtime.jpg",$download,FILE_APPEND);
         }
         //判断登录
         if($event=='subscribe'){
