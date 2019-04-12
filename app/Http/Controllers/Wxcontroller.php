@@ -137,5 +137,7 @@ class Wxcontroller extends Controller
         $res_str=$response->getBody();
         echo $res_str;
     }
-
+    public function a(){
+        echo "罪行";
+    }
 }
