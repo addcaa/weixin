@@ -17,17 +17,13 @@ class Wxcontroller extends Controller
         $str=$time.$content."\n";
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
         $data=simplexml_load_string($content);
-
         $MediaId=$data->MediaId;
         $openid=$data->FromUserName;
-        // echo $openid;die;
         $wx_id=$data->ToUserName;
         $createTime=$data->CreateTime;
-        // dd($user_info->nickname);
         $event = $data->Event;
         $MsgType=$data->MsgType;
         $content=$data->Content;
-        // dd($MsgType);
         $u=$this->getUserInfo($openid);
         $access=$this->AccessToren();
 
@@ -60,7 +56,7 @@ class Wxcontroller extends Controller
         }else if($MsgType=="voice"){
             //获取语音
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
-            $voictime=date('Y-d-m H:i:s');
+            $voictime=date('Y-m-d H:i:s');
             $serfil=file_get_contents($url);
             file_put_contents("/wwwroot/weixin/voice/$voictime.mp3",$serfil,FILE_APPEND);
         }
@@ -100,7 +96,7 @@ class Wxcontroller extends Controller
 
     }
 
-    /**获取微信 AccessToren */
+    /**获取微信 access_token */
     public function AccessToren(){
         $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
         $response=file_get_contents($url);
