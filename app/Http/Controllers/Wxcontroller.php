@@ -30,7 +30,7 @@ class Wxcontroller extends Controller
         $PicUrl=$data->PicUrl;
         $u=$this->getUserInfo($openid);
         $access=$this->AccessToren();
-        // $client= new Client;
+        $client= new Client;
         if($MsgType=="text"){
             // 下载用户文本
             $info=[
@@ -123,7 +123,6 @@ class Wxcontroller extends Controller
         }
 
     }
-
     /**获取微信 access_token */
     public function AccessToren(){
         $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
