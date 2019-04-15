@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
-use Illuminate\Support\Facades\Storage;
+// use GuzzleHttp\Psr7\Uri;
+// use Illuminate\Support\Facades\Storage;
 class Wxcontroller extends Controller
 {
     public function valid(){
@@ -30,7 +30,7 @@ class Wxcontroller extends Controller
         $PicUrl=$data->PicUrl;
         $u=$this->getUserInfo($openid);
         $access=$this->AccessToren();
-        $client= new Client;
+        // $client= new Client;
         if($MsgType=="text"){
             // 下载用户文本
             $info=[
