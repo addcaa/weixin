@@ -24,6 +24,7 @@ class Wxcontroller extends Controller
         $event = $data->Event;
         $MsgType=$data->MsgType;
         $content=$data->Content;
+        $MsgId=$data->MsgId;
         $u=$this->getUserInfo($openid);
         $access=$this->AccessToren();
 
@@ -59,6 +60,12 @@ class Wxcontroller extends Controller
             $voictime=date('Y-m-d H:i:s');
             $serfil=file_get_contents($url);
             file_put_contents("/wwwroot/weixin/voice/$voictime.mp3",$serfil,FILE_APPEND);
+        }else if($MsgType=="video"){
+            //视频接收
+            $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            $videotime=date('Y-m-d H:i:s');
+            $resvideo=file_get_contents($url);
+            file_put_contents("/wwwroot/weixin/video/$videotime.mp4",$resvideo,FILE_APPEND);
         }
         //判断登录
         if($event=='subscribe'){
@@ -105,7 +112,6 @@ class Wxcontroller extends Controller
         if($token){
             // echo "redis";
         }else{
-
             $arr=json_decode($response,true);
             Redis::set($key,$arr['access_token']);
             Redis::expire($key,3600);

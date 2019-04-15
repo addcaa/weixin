@@ -20,4 +20,4 @@ Route::any('/weixi/valid','Wxcontroller@index');
 Route::any('/weixin/AccessToren','Wxcontroller@AccessToren');
 Route::any('/weixin/test','Wxcontroller@test');
 Route::any('/weixin/createMenu','Wxcontroller@createMenu');
-
+Route::post('/weixin/semantic','Wxcontroller@semantic');
