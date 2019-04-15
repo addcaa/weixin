@@ -50,33 +50,31 @@ class Wxcontroller extends Controller
             </xml>
             ';
         }else if($MsgType=="image"){
-            //获取临时素材
-            $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
-            // 下载用户图片
-            // echo $url;die;
-            $response=$client->get(new Uri($url));
-            // var_dump($response);die;
-
-            $headers=$response->getHeaders();//获取 相应 头信息
-            // print_r($headers);die;
-            $file_info=$headers['Content-disposition'][0]; //获取文件名
-            // echo $file_info;die;
-            $file_name=rtrim(substr($file_info,-20),'"');
-            $new_file_name=substr(md5(time().mt_rand()),10,8).'_'.$file_name;
-            // echo $new_file_name;die;
-            // file_put_contents("/wwwroot/1809a/public/image/$new_file_name",FILE_APPEND);
-            $res=Storage::put($new_file_name,$response->getBody());
-            // echo $res;die;
-            $info=[
-                'openid'=>$u['openid'],
-                'm_name'=>$u['nickname'],
-                'm_sex'=>$u['sex'],
-                'm_headimg'=>$u['headimgurl'],
-                'm_time'=>$createTime,
-                'm_image'=>"wwwroot/weixin/storage/app".$new_file_name
-            ];
-
-            $arr=DB::table('message')->insert($info);
+            // //获取临时素材
+            // $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            // // 下载用户图片
+            // // echo $url;die;
+            // $response=$client->get(new Uri($url));
+            // // var_dump($response);die;
+            // $headers=$response->getHeaders();//获取 相应 头信息
+            // // print_r($headers);die;
+            // $file_info=$headers['Content-disposition'][0]; //获取文件名
+            // // echo $file_info;die;
+            // $file_name=rtrim(substr($file_info,-20),'"');
+            // $new_file_name=substr(md5(time().mt_rand()),10,8).'_'.$file_name;
+            // // echo $new_file_name;die;
+            // // file_put_contents("/wwwroot/1809a/public/image/$new_file_name",FILE_APPEND);
+            // $res=Storage::put($new_file_name,$response->getBody());
+            // // echo $res;die;
+            // $info=[
+            //     'openid'=>$u['openid'],
+            //     'm_name'=>$u['nickname'],
+            //     'm_sex'=>$u['sex'],
+            //     'm_headimg'=>$u['headimgurl'],
+            //     'm_time'=>$createTime,
+            //     'm_image'=>"wwwroot/weixin/storage/app".$new_file_name
+            // ];
+            // $arr=DB::table('message')->insert($info);
         }else if($MsgType=="voice"){
             //获取语音
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
