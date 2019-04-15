@@ -30,7 +30,6 @@ class Wxcontroller extends Controller
         $PicUrl=$data->PicUrl;
         $u=$this->getUserInfo($openid);
         $access=$this->AccessToren();
-        $client= new Client;
         if($MsgType=="text"){
             // 下载用户文本
             $info=[
@@ -50,6 +49,7 @@ class Wxcontroller extends Controller
             </xml>
             ';
         }else if($MsgType=="image"){
+            $client= new Client;
             //获取临时素材
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
             // 下载用户图片
@@ -67,7 +67,7 @@ class Wxcontroller extends Controller
             $res=Storage::put($new_file_name,$response->getBody());
             // echo $res;die;
             $info=[
-                'openid'=>$u['openid'],
+                'openid'=>$openid,
                 'm_name'=>$u['nickname'],
                 'm_sex'=>$u['sex'],
                 'm_headimg'=>$u['headimgurl'],
@@ -75,6 +75,11 @@ class Wxcontroller extends Controller
                 'm_image'=>"wwwroot/weixin/storage/app".$new_file_name
             ];
             $arr=DB::table('message')->insert($info);
+            if($arr){
+                echo "成功";
+            }else{
+                echo "失败";
+            }
         }else if($MsgType=="voice"){
             //获取语音
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
