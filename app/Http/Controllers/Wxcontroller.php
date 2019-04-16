@@ -180,7 +180,10 @@ class Wxcontroller extends Controller
                 ';
 
             }
-
+        }else if($event=="unsubscribe"){
+            // echo "取关";
+            $res=DB::table('user')->where(['openid'=>$openid])->update(['is_server'=>2]);
+            // echo $res;die;
         }
 
     }
@@ -193,6 +196,7 @@ class Wxcontroller extends Controller
         }else{
             $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
             $response=file_get_contents($url);
+            // echo $response;die;
             $arr=json_decode($response,true);
             Redis::set($key,$arr['access_token']);
             Redis::expire($key,7200);
@@ -276,10 +280,11 @@ class Wxcontroller extends Controller
         return $response->getBody();
     }
     public function send(){
-        $arr=DB::table('user')->get()->toArray();
+        $arr=DB::table('user')->where(['is_server'=>1])->get()->toArray();
+        // print_r($arr);die;
         $openid_arr=array_column($arr,'openid');
         //  print_r($openid_arr);die;
-        $msg="一切顺利";
+        $msg="holle";
         $response=$this->sendmse($openid_arr,$msg);
         echo $response;
     }
