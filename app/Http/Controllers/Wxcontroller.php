@@ -153,6 +153,7 @@ class Wxcontroller extends Controller
         if($event=='subscribe'){
             $user_info=DB::table('user')->where(['openid'=>$openid])->first();
             if($user_info){
+            $res=DB::table('user')->where(['openid'=>$openid])->update(['is_server'=>1]);
                 echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
                 <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
                 <CreateTime>'.time().'</CreateTime>
