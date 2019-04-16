@@ -216,7 +216,9 @@ class Wxcontroller extends Controller
         $u=json_decode($data,true);
         return $u;
     }
-    /**创建公众号菜单 */
+    /**
+     * 创建公众号菜单
+    */
     public function createMenu(){
         //菜单接口
         // echo "111";die;
@@ -229,16 +231,16 @@ class Wxcontroller extends Controller
 
                 [
                     "type"=>"click",
-                    "name"=>"今日歌曲",
+                    "name"=>"嘿嘿",
 
                     "key"=>"V1001_TODAY_MUSIC"
                 ],
                 [
-                    "name"=>"小企鹅",
+                    "name"=>"O(∩_∩)O哈哈~",
                     "sub_button"=>[
                         [
                             "type"=>"view",
-                            "name"=>"搜索",
+                            "name"=>"点击带你飞",
                             "url"=>"http://1809cuifangfang.comcto.com/"
                         ],
                     ],
