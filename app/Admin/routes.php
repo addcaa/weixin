@@ -12,6 +12,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->get('/user','UserController@index');
+    $router->get('/Message','MessageController@index');
 
 
 });

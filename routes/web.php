@@ -21,3 +21,5 @@ Route::any('/weixin/AccessToren','Wxcontroller@AccessToren');
 Route::any('/weixin/test','Wxcontroller@test');
 Route::any('/weixin/createMenu','Wxcontroller@createMenu');
 Route::post('/weixin/semantic','Wxcontroller@semantic');
+Route::get('/weixin/send','Wxcontroller@send');
+Route::get('/weixin/sendmse','Wxcontroller@sendmse');

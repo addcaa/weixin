@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Facades\Storage;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+
 class Wxcontroller extends Controller
 {
     public function valid(){
@@ -18,9 +21,11 @@ class Wxcontroller extends Controller
         $time=date('Y-m-d H:i:s');
         $str=$time.$content."\n";
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
+        // echo "SUCCESS";
         $data=simplexml_load_string($content);
         $MediaId=$data->MediaId;
         $openid=$data->FromUserName;
+        // echo $openid;die;
         $wx_id=$data->ToUserName;
         $createTime=$data->CreateTime;
         $event = $data->Event;
@@ -34,8 +39,40 @@ class Wxcontroller extends Controller
         $access=$this->test();
         if($MsgType=="text"){
             // 下载用户文本
+            // echo $content;die;
+            if(strpos($content,'+天气')){
+                $city=explode('+',$content)[0];
+                // echo "$city";
+                $url="https://free-api.heweather.net/s6/weather/now?key=HE1904161049361666&location=$city";
+                // echo $url;die;
+                $arr=json_decode(file_get_contents($url),true);
+                // print_r($arr);
+                if($arr['HeWeather6'][0]['status']=="unknown location"){
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <Content>['.'城市名称不正确'.']</Content>
+                    </xml>
+                    ';
+                }else{
+                    $tmp=$arr['HeWeather6'][0]['now']['tmp'];//温度
+                    $cond_txt=$arr['HeWeather6'][0]['now']['cond_txt'];//fen'li
+                    $wind_sc=$arr['HeWeather6'][0]['now']['wind_sc'];//风力
+                    $hum=$arr['HeWeather6'][0]['now']['hum']; // 湿度
+                    $wind_dir=$arr['HeWeather6'][0]['now']['wind_dir'];// 风向
+                    $res="$cond_txt 温度:$tmp 风力:$wind_sc 湿度:$hum 风向:$wind_dir";
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <Content>['.$res.']</Content>
+                    </xml>
+                    ';
+                }
+            }
             $info=[
-                'openid'=>$u['openid'],
+                'openid'=>$openid,
                 'm_name'=>$u['nickname'],
                 'm_sex'=>$u['sex'],
                 'm_headimg'=>$u['headimgurl'],
@@ -51,7 +88,6 @@ class Wxcontroller extends Controller
             </xml>
             ';
         }else if($MsgType=="image"){
-
             //获取临时素材
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
             // 下载用户图片
@@ -65,8 +101,7 @@ class Wxcontroller extends Controller
             $file_name=rtrim(substr($file_info,-20),'"');
             $new_file_name=substr(md5(time().mt_rand()),10,8).'_'.$file_name;
             // echo $new_file_name;die;
-            // file_put_contents("/wwwroot/1809a/public/image/$new_file_name",FILE_APPEND);
-            $res=Storage::put($new_file_name,$response->getBody());
+            $res=Storage::put($new_file_name,$response->getBody());//保存
             // echo $res;die;
             $info=[
                 'openid'=>$openid,
@@ -151,16 +186,16 @@ class Wxcontroller extends Controller
     }
     /**获取微信 access_token */
     public function AccessToren(){
-        $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
-        $response=file_get_contents($url);
         $key='wx_access_token';
         $token=Redis::get($key);
         if($token){
-            // echo "redis";
+            //echo "redis";
         }else{
+            $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET');
+            $response=file_get_contents($url);
             $arr=json_decode($response,true);
             Redis::set($key,$arr['access_token']);
-            Redis::expire($key,3600);
+            Redis::expire($key,7200);
             $token=$arr['access_token'];
         }
         return $token;
@@ -172,7 +207,7 @@ class Wxcontroller extends Controller
     /**用户信息 */
     public function getUserInfo($openid){
         $url='https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->test().'&openid='.$openid.'&lang=zh_CN';
-        //dd($url);
+        // dd($url);
         $data=file_get_contents($url);
         $u=json_decode($data,true);
         return $u;
@@ -217,5 +252,35 @@ class Wxcontroller extends Controller
         //处理响应
         $res_str=$response->getBody();
         echo $res_str;
+    }
+    /**群发
+     *
+     *$openid_arr openid
+     *$content 文本
+    */
+    public function sendmse($openid_arr,$content){
+        $msg=[
+            'touser'=>$openid_arr,
+            'msgtype'=>"text",
+            'text'=>[
+                'content'=>$content
+            ],
+        ];
+        $access=$this->test();
+        $data=json_encode($msg,JSON_UNESCAPED_SLASHES);
+        $url="https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$access";
+        $client= new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$data,
+        ]);
+        return $response->getBody();
+    }
+    public function send(){
+        $arr=DB::table('user')->get()->toArray();
+        $openid_arr=array_column($arr,'openid');
+        //  print_r($openid_arr);die;
+        $msg="一切顺利";
+        $response=$this->sendmse($openid_arr,$msg);
+        echo $response;
     }
 }

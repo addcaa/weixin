@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\User\UserModel;
+use App\Model\Message\MessageModel;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class UserController extends Controller
+class MessageController extends Controller
 {
     use HasResourceActions;
 
@@ -79,12 +79,12 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new UserModel);
+        $grid = new Grid(new MessageModel);
 
-        $grid->uid('Uid');
+        $grid->m_id('M id');
         $grid->openid('Openid');
-        $grid->nickname('昵称');
-        $grid->sex('性别')->display(function($sex){
+        $grid->m_name('用户名');
+        $grid->m_sex('性别')->display(function($sex){
             if($sex==1){
                 return "男";
             }else if($sex==2){
@@ -93,12 +93,18 @@ class UserController extends Controller
                 return "隐藏";
             }
         });
-        $grid->headimgurl('头像')->display(function($img){
+        $grid->m_headimg('头像')->display(function($img){
             return '<img src="'.$img.'">';
         });
-        $grid->subscribe_time('Subscribe time')->display(function($time){
+        $grid->m_time('时间')->display(function($time){
             return date('Y-m-d H:i:s',$time);
         });
+        $grid->m_text('文字');
+        $grid->m_image('图片')->display(function($img){
+            return '<img src="'.$img.'">';
+        });
+        $grid->m_voice('语言');
+        $grid->m_video('视频');
 
         return $grid;
     }
@@ -111,14 +117,18 @@ class UserController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(UserModel::findOrFail($id));
+        $show = new Show(MessageModel::findOrFail($id));
 
-        $show->uid('Uid');
+        $show->m_id('M id');
         $show->openid('Openid');
-        $show->nickname('Nickname');
-        $show->sex('Sex');
-        $show->headimgurl('Headimgurl');
-        $show->subscribe_time('Subscribe time');
+        $show->m_name('M name');
+        $show->m_sex('M sex');
+        $show->m_headimg('M headimg');
+        $show->m_time('M time');
+        $show->m_text('M text');
+        $show->m_image('M image');
+        $show->m_voice('M voice');
+        $show->m_video('M video');
 
         return $show;
     }
@@ -130,14 +140,18 @@ class UserController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new UserModel);
+        $form = new Form(new MessageModel);
 
-        $form->number('uid', 'Uid');
+        $form->number('m_id', 'M id');
         $form->text('openid', 'Openid');
-        $form->text('nickname', 'Nickname');
-        $form->text('sex', 'Sex');
-        $form->text('headimgurl', 'Headimgurl');
-        $form->number('subscribe_time', 'Subscribe time');
+        $form->text('m_name', 'M name');
+        $form->text('m_sex', 'M sex');
+        $form->text('m_headimg', 'M headimg');
+        $form->text('m_time', 'M time');
+        $form->text('m_text', 'M text');
+        $form->text('m_image', 'M image');
+        $form->text('m_voice', 'M voice');
+        $form->text('m_video', 'M video');
 
         return $form;
     }
