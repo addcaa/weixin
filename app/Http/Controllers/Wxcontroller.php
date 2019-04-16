@@ -226,9 +226,7 @@ class Wxcontroller extends Controller
         //接口数据
         // echo $url;die;
         $post_arr=[
-
             'button'=>[
-
                 [
                     "type"=>"click",
                     "name"=>"嘿嘿",
@@ -236,7 +234,7 @@ class Wxcontroller extends Controller
                     "key"=>"V1001_TODAY_MUSIC"
                 ],
                 [
-                    "name"=>"O(∩_∩)O哈哈~",
+                    "name"=>"O(∩_∩)O",
                     "sub_button"=>[
                         [
                             "type"=>"view",
@@ -257,7 +255,7 @@ class Wxcontroller extends Controller
         ]);
         //处理响应
         $res_str=$response->getBody();
-        echo $res_str;
+        echo $res_str;die;
     }
     /**群发
      *
