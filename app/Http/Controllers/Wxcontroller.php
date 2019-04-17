@@ -272,7 +272,7 @@ class Wxcontroller extends Controller
             ],
         ];
         $access=$this->test();
-        $data=json_encode($msg,JSON_UNESCAPED_SLASHES);
+        $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
         $url="https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=$access";
         $client= new Client();
         $response=$client->request('post',$url,[
@@ -285,7 +285,7 @@ class Wxcontroller extends Controller
         // print_r($arr);die;
         $openid_arr=array_column($arr,'openid');
         //  print_r($openid_arr);die;
-        $msg="holle";
+        $msg="加油";
         $response=$this->sendmse($openid_arr,$msg);
         echo $response;
     }
