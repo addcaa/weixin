@@ -222,7 +222,6 @@ class Wxcontroller extends Controller
     */
     public function createMenu(){
         //菜单接口
-        // echo "111";die;
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->test();
         //接口数据
         // echo $url;die;
