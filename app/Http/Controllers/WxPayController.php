@@ -10,7 +10,7 @@ class WxPayController extends Controller
     //统一下单接口
     public $weixin_unifiedorder_url='https://api.mch.weixin.qq.com/pay/unifiedorder';
     //支付回调
-    public $notify_url = 'http://1809abc.comcto.com/weixin/notify';
+    public $notify_url = 'http://cmd.fang.com/weixin/notify';
     /**
      *
      * 微信支付测试
