@@ -43,7 +43,12 @@ class WxPayController extends Controller
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
         $data = simplexml_load_string($rs);
        // var_dump($data);echo '<hr>';
-        echo 'code_url: '.$data->code_url;echo '<br>';
+        // echo 'code_url: '.$data->code_url;echo '<br>';
+
+            $code_url=$data->code_url;
+
+        // print_r($data) ;die;
+        return view('weixin.test',['code_url'=>$code_url]);
     }
     protected function ToXml()
     {
