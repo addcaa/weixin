@@ -33,9 +33,10 @@ class WxPayController extends Controller
             'notify_url'    => $this->notify_url,        //通知回调地址
             'trade_type'    => 'NATIVE'                         // 交易类型
         ];
-        // echo $this->notify_url;die;
+        //echo $this->notify_url;die;
         // print_r($order_info);die;
         $this->values = [];
+
         $this->values = $order_info;
         $this->SetSign();
         $xml = $this->ToXml();      //将数组转换为XML
