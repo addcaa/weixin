@@ -284,7 +284,7 @@ class Wxcontroller extends Controller
         // print_r($arr);die;
         $openid_arr=array_column($arr,'openid');
         //  print_r($openid_arr);die;
-        $msg="假如我不能，我一定要；假如我一定要，我就一定能";
+        $msg="成功就是把复杂的问题简单化，然后狠狠去做";
         $response=$this->sendmse($openid_arr,$msg);
         echo $response;
     }
