@@ -79,14 +79,15 @@ class Wxcontroller extends Controller
                 'm_time'=>$createTime,
                 'm_text'=> $content
             ];
+            // dd($info);
             // $arr=DB::table('message')->insert($info);
             // dd($arr);
 
             if($content=="最新商品"){
-                $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(1)->get()->toArray();
-                foreach($goods_info as $k=>$v){
-                    $goods_name=$v->goods_name;
-                    $goods_img=$v->goods_img;
+                $goods_info=DB::table('goods')->where(['goods_static'=>1])->first();
+                // foreach($goods_info as $k=>$v){
+                    $goods_name=$goods_info->goods_name;
+                    $goods_img=$goods_info->goods_img;
                     $url="http://www.uploads.com/uploads/$goods_img";
                     echo
                     '<xml>
@@ -104,7 +105,7 @@ class Wxcontroller extends Controller
                         </item>
                         </Articles>
                     </xml>';
-                }
+                // }
             }
 
         }else if($MsgType=="image"){
