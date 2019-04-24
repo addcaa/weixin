@@ -23,6 +23,9 @@ Route::any('/weixin/createMenu','Wxcontroller@createMenu');
 Route::post('/weixin/semantic','Wxcontroller@semantic');
 Route::get('/weixin/send','Wxcontroller@send');
 Route::get('/weixin/sendmse','Wxcontroller@sendmse');
+
+Route::get('/weixin/goodslist','Wxcontroller@goodslist');
+
 //订单支付
 Route::get('/weixin/text','WxPayController@text');
 

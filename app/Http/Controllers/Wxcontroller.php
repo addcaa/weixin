@@ -88,9 +88,9 @@ class Wxcontroller extends Controller
                 // foreach($goods_info as $k=>$v){
                     $goods_name=$goods_info->goods_name;
                     $goods_img=$goods_info->goods_img;
-                    $url="http://vm.uploads.com/uploads/$goods_img";
+                    $url="http://mmbiz.qpic.cn/mmbiz_jpg/Hiak941wazMV8NXcT7cfIL1NMBf26bia8GOib2v1vO2qwQZgvR1vj9NibdFS7RBseaPPDRYpsqhJzTHBgpft2INGfA/0?wx_fmt=jpeg";
                     $desc="图片消息";
-                    $surl="http://1809cuifangfang.comcto.com/";
+                    $surl="http://1809cuifangfang.comcto.com/weixin/goodslist";
 
                     echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
@@ -108,7 +108,7 @@ class Wxcontroller extends Controller
                     </Articles>
                   </xml>';
                 // }
-                die;
+
             }
 
         }else if($MsgType=="image"){
@@ -310,5 +310,10 @@ class Wxcontroller extends Controller
         $msg="成功就是把复杂的问题简单化，然后狠狠去做";
         $response=$this->sendmse($openid_arr,$msg);
         echo $response;
+    }
+    public function goodslist(Request $request){
+        $wxconfig=$request->signPackage;
+        // dd($wxconfig);
+        return view('/weixin/goodslist',['wxconfig'=>$wxconfig]);
     }
 }
