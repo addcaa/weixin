@@ -23,6 +23,7 @@ class Wxcontroller extends Controller
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
         // echo "SUCCESS";
         $data=simplexml_load_string($content);
+        // print_r($data);die;
         $MediaId=$data->MediaId;
         $openid=$data->FromUserName;
         // echo $openid;die;
@@ -71,18 +72,17 @@ class Wxcontroller extends Controller
                     ';
                 }
             }
-            $info=[
-                'openid'=>$openid,
-                'm_name'=>$u['nickname'],
-                'm_sex'=>$u['sex'],
-                'm_headimg'=>$u['headimgurl'],
-                'm_time'=>$createTime,
-                'm_text'=> $content
-            ];
+            // $info=[
+            //     'openid'=>$openid,
+            //     'm_name'=>$u['nickname'],
+            //     'm_sex'=>$u['sex'],
+            //     'm_headimg'=>$u['headimgurl'],
+            //     'm_time'=>$createTime,
+            //     'm_text'=> $content
+            // ];
             // dd($info);
             // $arr=DB::table('message')->insert($info);
             // dd($arr);
-
             if($content=="最新商品"){
                 $goods_info=DB::table('goods')->where(['goods_static'=>1])->first();
                 // foreach($goods_info as $k=>$v){
