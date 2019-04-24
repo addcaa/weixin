@@ -88,24 +88,25 @@ class Wxcontroller extends Controller
                 // foreach($goods_info as $k=>$v){
                     $goods_name=$goods_info->goods_name;
                     $goods_img=$goods_info->goods_img;
-                    $url="http://www.uploads.com/uploads/$goods_img";
-                    echo
-                    '<xml>
-                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                        <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                        <CreateTime>'.time().'</CreateTime>
-                        <MsgType><![CDATA[image]]></MsgType>
-                        <ArticleCount>1</ArticleCount>
-                        <Articles>
-                        <item>
-                            <Title><![CDATA['.$goods_name.']]></Title>
-                            <Description><![CDATA[图文消息描述]]></Description>
-                            <PicUrl><![CDATA['.$url.']]></PicUrl>
-                            <Url><![CDATA[点击图文消息跳转链接]]></Url>
-                        </item>
-                        </Articles>
-                    </xml>';
+                    // $url="http://www.uploads.com/uploads/$goods_img";
+                    $desc="图片消息";
+                    echo '<xml>
+                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[news]]></MsgType>
+                    <ArticleCount>1</ArticleCount>
+                    <Articles>
+                      <item>
+                        <Title><![CDATA['.$goods_name.']]></Title>
+                        <Description><![CDATA['.$desc.']]></Description>
+                        <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3437789450,2499445022&fm=27&gp=0.jpg'.']]></PicUrl>
+                        <Url><![CDATA['.'www.baidu.com'.']]></Url>
+                      </item>
+                    </Articles>
+                  </xml>';
                 // }
+                die;
             }
 
         }else if($MsgType=="image"){
