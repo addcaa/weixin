@@ -18,7 +18,7 @@
         <tr>
             <td>{{$v->goods_id}}</td>
             <td>{{$v->goods_name}}</td>
-            <td> <img src="{{$v->goods_img}}" alt="暂无图片" width="40"></td>
+            <td> <img src="{{$v->goods_img}}" alt="" width=""></td>
             <td>{{$v->goods_price}}</td>
         </tr>
         @endforeach
@@ -33,7 +33,8 @@
         signature: "{{$wxconfig['signature']}}",
         jsApiList: [
         'onMenuShareTimeline',
-        'onMenuShareAppMessage'
+        'onMenuShareAppMessage',
+        'updateTimelineShareData'
         ]
         });
         wx.ready(function () {
@@ -45,16 +46,6 @@
                 // 用户点击了分享后执行的回调函数
                 },
             });
-            // // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
-            // wx.updateAppMessageShareData({
-            //     title: '电视', // 分享标题
-            //     desc: '大屏电视', // 分享描述
-            //     link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            //     imgUrl: '', // 分享图标
-            //     success: function () {
-            //     // 设置成功
-            //     }
-            // })
             wx.onMenuShareAppMessage({
                 title: '电视', // 分享标题
                 desc: '大屏电视', // 分享描述
