@@ -314,7 +314,7 @@ class Wxcontroller extends Controller
         $wxconfig=$request->signPackage;
         $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(5)->get();
 
-        // dd($wxconfig);
+        // dd($goods_info);
         return view('/weixin/goodslist',['goods_info'=>$goods_info,'wxconfig'=>$wxconfig]);
     }
 }
