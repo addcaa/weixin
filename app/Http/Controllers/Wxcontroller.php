@@ -99,9 +99,9 @@ class Wxcontroller extends Controller
                         <Articles>
                         <item>
                             <Title><![CDATA['.$goods_name.']]></Title>
-                            <Description><![CDATA[description1]]></Description>
+                            <Description><![CDATA[图文消息描述]]></Description>
                             <PicUrl><![CDATA['.$url.']]></PicUrl>
-                            <Url><![CDATA[url]]></Url>
+                            <Url><![CDATA[点击图文消息跳转链接]]></Url>
                         </item>
                         </Articles>
                     </xml>';
