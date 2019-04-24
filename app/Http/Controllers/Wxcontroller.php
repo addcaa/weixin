@@ -313,7 +313,9 @@ class Wxcontroller extends Controller
     }
     public function goodslist(Request $request){
         $wxconfig=$request->signPackage;
+        $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(5)->get();
+
         // dd($wxconfig);
-        return view('/weixin/goodslist',['wxconfig'=>$wxconfig]);
+        return view('/weixin/goodslist',['goods_info'=>$goods_info,'wxconfig'=>$wxconfig]);
     }
 }
