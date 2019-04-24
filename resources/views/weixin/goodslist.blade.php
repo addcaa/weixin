@@ -11,10 +11,10 @@
     <script>
         wx.config({
         debug: true,
-        appId: "{{$signPackage['appId']}}",
-        timestamp: "{{$signPackage['timestamp']}}",
-        nonceStr: "{{$signPackage['nonceStr']}}",
-        signature: "{{$signPackage['signature']}}",
+        appId: "{{$wxconfig['appId']}}",
+        timestamp: "{{$wxconfig['timestamp']}}",
+        nonceStr: "{{$wxconfig['nonceStr']}}",
+        signature: "{{$wxconfig['signature']}}",
         jsApiList: [
         'onMenuShareTimeline',
         ]
