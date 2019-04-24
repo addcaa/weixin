@@ -83,7 +83,7 @@ class Wxcontroller extends Controller
             // dd($arr);
 
             if($content=="最新商品"){
-                $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(5)->get()->toArray();
+                $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(1)->get()->toArray();
                 foreach($goods_info as $k=>$v){
                     $goods_name=$v->goods_name;
                     $goods_img=$v->goods_img;
