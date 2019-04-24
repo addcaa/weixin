@@ -32,19 +32,28 @@
         nonceStr: "{{$wxconfig['nonceStr']}}",
         signature: "{{$wxconfig['signature']}}",
         jsApiList: [
-        'updateAppMessageShareData'
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
         ]
         });
-        wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-            wx.updateAppMessageShareData({
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+            title: '电视', // 分享标题
+            link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl:'http://mmbiz.qpic.cn/mmbiz_jpg/Hiak941wazMV8NXcT7cfIL1NMBf26bia8GOib2v1vO2qwQZgvR1vj9NibdFS7RBseaPPDRYpsqhJzTHBgpft2INGfA/0?wx_fmt=jpeg', // 分享图标
+                success: function () {
+                // 用户点击了分享后执行的回调函数
+                },
+            });
+            wx.onMenuShareAppMessage({
                 title: '电视', // 分享标题
                 desc: '大屏电视', // 分享描述
                 link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                 imgUrl: 'http://mmbiz.qpic.cn/mmbiz_jpg/Hiak941wazMV8NXcT7cfIL1NMBf26bia8GOib2v1vO2qwQZgvR1vj9NibdFS7RBseaPPDRYpsqhJzTHBgpft2INGfA/0?wx_fmt=jpeg', // 分享图标
                 success: function () {
-                // 设置成功
+                // 用户点击了分享后执行的回调函数
                 }
-            })
+            });
         });
     </script>
 </body>
