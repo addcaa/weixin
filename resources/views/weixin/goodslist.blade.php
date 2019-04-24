@@ -33,8 +33,7 @@
         signature: "{{$wxconfig['signature']}}",
         jsApiList: [
         'onMenuShareTimeline',
-        'onMenuShareAppMessage',
-        'updateTimelineShareData'
+        'onMenuShareAppMessage'
         ]
         });
         wx.ready(function () {
