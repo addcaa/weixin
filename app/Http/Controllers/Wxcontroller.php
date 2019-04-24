@@ -88,10 +88,9 @@ class Wxcontroller extends Controller
                 // foreach($goods_info as $k=>$v){
                     $goods_name=$goods_info->goods_name;
                     $goods_img=$goods_info->goods_img;
-                    $url="http://mmbiz.qpic.cn/mmbiz_jpg/Hiak941wazMV8NXcT7cfIL1NMBf26bia8GOib2v1vO2qwQZgvR1vj9NibdFS7RBseaPPDRYpsqhJzTHBgpft2INGfA/0?wx_fmt=jpeg";
+                    $url="https://dpic.tiankong.com/m1/vr/QJ8454333899.jpg?x-oss-process=style/shows";
                     $desc="图片消息";
                     $surl="http://1809cuifangfang.comcto.com/weixin/goodslist";
-
                     echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
                     <FromUserName><![CDATA['.$wx_id.']]></FromUserName>

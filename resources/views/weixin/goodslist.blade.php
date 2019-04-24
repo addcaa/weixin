@@ -23,8 +23,6 @@
         </tr>
         @endforeach
     </table>
-
-
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         wx.config({
@@ -46,9 +44,7 @@
                 success: function () {
                 // 用户点击了分享后执行的回调函数
                 },
-        });
-        });
-        wx.ready(function(){
+            });
             wx.onMenuShareAppMessage({
                 title: '电视', // 分享标题
                 desc: '大屏电视', // 分享描述
@@ -58,8 +54,7 @@
                 // 用户点击了分享后执行的回调函数
                 }
             });
-        })
-
+        });
     </script>
 </body>
 </html>
