@@ -79,14 +79,34 @@ class Wxcontroller extends Controller
                 'm_time'=>$createTime,
                 'm_text'=> $content
             ];
-            $arr=DB::table('message')->insert($info);
-            echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
-            <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-            <CreateTime>'.time().'</CreateTime>
-            <MsgType><![CDATA[text]]></MsgType>
-            <Content>['.'不要失去信心，只要坚持不懈，就终会有成果的'.']</Content>
-            </xml>
-            ';
+            // $arr=DB::table('message')->insert($info);
+            // dd($arr);
+
+            if($content=="最新商品"){
+                $goods_info=DB::table('goods')->where(['goods_static'=>1])->take(5)->get()->toArray();
+                foreach($goods_info as $k=>$v){
+                    $goods_name=$v->goods_name;
+                    $goods_img=$v->goods_img;
+                    $url="http://www.uploads.com/uploads/$goods_img";
+                    echo
+                    '<xml>
+                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                        <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                        <CreateTime>'.time().'</CreateTime>
+                        <MsgType><![CDATA[image]]></MsgType>
+                        <ArticleCount>1</ArticleCount>
+                        <Articles>
+                        <item>
+                            <Title><![CDATA['.$goods_name.']]></Title>
+                            <Description><![CDATA[description1]]></Description>
+                            <PicUrl><![CDATA['.$url.']]></PicUrl>
+                            <Url><![CDATA[url]]></Url>
+                        </item>
+                        </Articles>
+                    </xml>';
+                }
+            }
+
         }else if($MsgType=="image"){
             //获取临时素材
             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
@@ -186,7 +206,6 @@ class Wxcontroller extends Controller
             $res=DB::table('user')->where(['openid'=>$openid])->update(['is_server'=>2]);
             // echo $res;die;
         }
-
     }
     /**获取微信 access_token */
     public function AccessToren(){

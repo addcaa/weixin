@@ -27,3 +27,4 @@ Route::get('/weixin/sendmse','Wxcontroller@sendmse');
 Route::get('/weixin/text','WxPayController@text');
 
 Route::post('/weixin/notify','WxPayController@notify');
+Route::get('/weixin/aa','WxPayController@aa');

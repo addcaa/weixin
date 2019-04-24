@@ -19,7 +19,7 @@ class WxPayController extends Controller
         //用户要支付的总金额
         $total_fee = 1;
         //测试订单号 随机生成
-        $order_id = time().mt_rand(11111,99999);
+        $order_id = time().'cuifang'.mt_rand(11111,99999);
         // echo $order_id;die;
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -138,7 +138,7 @@ class WxPayController extends Controller
         return $buff;
     }
 
-        /**
+    /**
      * 微信支付回调
      */
     public function notify()
@@ -161,6 +161,10 @@ class WxPayController extends Controller
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo $response;
+    }
+    public function aa(){
+        $data="你是小仙女";
+        return view('/weixin/aa',['data'=>$data]);
     }
 
 }
