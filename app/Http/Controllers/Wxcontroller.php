@@ -90,6 +90,8 @@ class Wxcontroller extends Controller
                     $goods_img=$goods_info->goods_img;
                     $url="http://vm.uploads.com/uploads/$goods_img";
                     $desc="图片消息";
+                    $surl="http://1809cuifangfang.comcto.com/";
+
                     echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
                     <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -101,7 +103,7 @@ class Wxcontroller extends Controller
                         <Title><![CDATA['.$goods_name.']]></Title>
                         <Description><![CDATA['.$desc.']]></Description>
                         <PicUrl><![CDATA['.$url.']]></PicUrl>
-                        <Url><![CDATA['.'www.baidu.com'.']]></Url>
+                        <Url><![CDATA['.$surl.']]></Url>
                       </item>
                     </Articles>
                   </xml>';
